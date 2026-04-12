@@ -58,6 +58,12 @@ public class PathfinderConfig {
             new int[][]{ItemVariations.DRAMEN_STAFF.getIds()},
             new int[][]{null},
             new int[]{1});
+    private static final TransportItems RING_OF_SHADOWS = new TransportItems(
+            new int[][]{{4657, 28329, 28327}},
+            new int[][]{null},
+            new int[][]{null},
+            new int[]{1});
+    private static final int SHADOW_DUNGEON_ORIGIN = WorldPointUtil.packWorldPoint(2547, 3421, 0);
 
     private final SplitFlagMap mapData;
     private final ThreadLocal<CollisionMap> map;
@@ -664,6 +670,13 @@ public class PathfinderConfig {
                 if (!hasRequiredItems(DRAMEN_STAFF, checkInventory, checkEquipment, checkBank, checkRunePouch)) {
                     return false;
                 }
+            }
+        }
+
+        // Shadow Dungeon requires Ring of shadows or its variants
+        if (transport.getOrigin() == SHADOW_DUNGEON_ORIGIN) {
+            if (!hasRequiredItems(RING_OF_SHADOWS, checkInventory, checkEquipment, checkBank, checkRunePouch)) {
+                return false;
             }
         }
 
